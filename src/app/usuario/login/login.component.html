@@ -1,0 +1,60 @@
+<div class="login-form">
+    <mat-card>
+      <mat-card-content>
+        <h1 *ngIf="modoCrear && !modoEditar">Registar Usuario Nuevo</h1>
+        <h1 *ngIf="!modoCrear && !modoEditar">Iniciar Sesión</h1>
+        <h1 *ngIf="!modoCrear && modoEditar">Editar</h1>
+        <form [formGroup]="formGroup">
+          <mat-form-field class="full-width-input">
+            <input *ngIf="!modoEditar"
+                   text="Correo"
+                   type="email"
+                   formControlName="correo"
+                   matInput
+                   placeholder="Correo"
+                   required />
+                   <input *ngIf="!modoCrear && modoEditar"
+                   text="Correo"
+                   type="email"
+                   formControlName="correo"
+                   matInput
+                   placeholder="Correo"
+                   readonly  />
+          </mat-form-field>
+          <mat-form-field class="full-width-input separator">
+            <input text="Password"
+                   type="password"
+                   formControlName="password"
+                   matInput
+                   placeholder="Password"
+                   required />
+          </mat-form-field>
+          <mat-form-field *ngIf="!modoCrear && modoEditar" class="full-width-input separator">
+            <input 
+                  text="Password"
+                   type="password"
+                   formControlName="passwordNuevo"
+                   matInput
+                   placeholder="password Nuevo"
+                   required />
+          </mat-form-field>
+          <button *ngIf="!modoCrear && !modoEditar" type="submit" (click)="onLogin()" mat-raised-button color="primary">
+            Iniciar sesión
+          </button>
+          <button *ngIf="!modoCrear && modoEditar" type="submit" (click)="onEdit()" mat-raised-button color="primary">
+            Editar
+          </button>
+          <div>
+            <button  *ngIf="modoCrear && !modoEditar" type="submit" (click)="onSave()" mat-raised-button color="primary">
+              Registar
+            </button>
+          <button *ngIf="modoCrear || modoEditar" mat-icon-button color="warn" (click)="goBack()"><mat-icon>reply_all</mat-icon></button>
+
+          </div>
+          
+  
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+

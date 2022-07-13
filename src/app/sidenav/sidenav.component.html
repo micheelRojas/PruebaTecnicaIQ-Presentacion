@@ -1,0 +1,98 @@
+<mat-toolbar>
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayoutAlign="start center">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon matSuffix svgIcon="menu"> </mat-icon>
+        </button>
+        <h1>Prueba IQ</h1>
+        <span class="menu-spacer"></span>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="avatar-letter">{{ initial }}</div>
+      <button class="name-margin" mat-button [matMenuTriggerFor]="menu">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <i id="icon" class="material-icons">logout</i>
+        </div>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onSignOut()"> Cerrar sesión </button>
+      </mat-menu>
+    </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav [mode]="'side'" [opened]="true">
+      <mat-nav-list class="sidenav">
+        <mat-list-item (click)="showSubmenuInventory = !showSubmenuInventory">
+          <span class="full-width letter-bold" *ngIf="isExpandedInventory || isShowingInventory"> Autenticados </span>
+          <mat-icon mat-list-icon svgIcon="inventory" style="padding-right: 10px;"></mat-icon>
+          <mat-icon
+            matSuffix
+            svgIcon="expand-more"
+            class="menu-button"
+            [ngClass]="{ rotated: showSubmenuInventory }"
+            *ngIf="isExpandedInventory || isShowingInventory"
+          ></mat-icon>
+        </mat-list-item>
+        <div
+          class="submenu"
+          [ngClass]="{
+            absolute: showSubmenuInventory == false,
+            relative: showSubmenuInventory == true,
+            expanded: showSubmenuInventory
+          }"
+          *ngIf="isShowingInventory || isExpandedInventory"
+        >
+          <a
+            mat-list-item
+            [routerLink]="'/list-Autenticado'"
+            [routerLinkActive]="['active']">
+            <i id="icon" class="material-icons">settings</i>
+            <span id="text" class="text"> Consultar Autenticados </span>
+          </a>
+        </div>
+
+        <mat-list-item (click)="showSubmenuTerceros = !showSubmenuTerceros">
+          <span class="full-width letter-bold" *ngIf="isExpandedTerceros || isShowingTerceros"> Usuarios </span>
+          <mat-icon mat-list-icon svgIcon="person" style="padding-right: 10px;"></mat-icon>
+          <mat-icon
+            matSuffix
+            svgIcon="expand-more"
+            class="menu-button"
+            [ngClass]="{ rotated: showSubmenuTerceros }"
+            *ngIf="isExpandedTerceros || isShowingTerceros"
+          ></mat-icon>
+        </mat-list-item>
+        <div
+          class="submenu"
+          [ngClass]="{
+            absolute: showSubmenuTerceros == false,
+            relative: showSubmenuTerceros == true,
+            expanded: showSubmenuTerceros
+          }"
+          *ngIf="isShowingTerceros || isExpandedTerceros">
+          <a
+            mat-list-item
+            [routerLink]="'/registrar-usuario'"
+            [routerLinkActive]="['active']">
+            <i id="icon" class="material-icons">settings</i>
+            <span id="text" class="text"> Registrar Usuario </span>
+          </a>
+          <a
+            mat-list-item
+            [routerLink]="'/list-usuarios'"
+            [routerLinkActive]="['active']">
+            <i id="icon" class="material-icons">settings</i>
+            <span id="text" class="text">  Usuarios </span>
+          </a>
+        </div>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="background">
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
