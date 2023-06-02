@@ -9,16 +9,16 @@ import {Observable, throwError} from 'rxjs';
 
 import {catchError} from "rxjs/operators";
 import {Router} from "@angular/router";
-import { UsuarioService } from './usuario.service';
+import { EmployeeService } from './employee.service';
 
 @Injectable()
 export class JwtIntercerptorInterceptor implements HttpInterceptor {
-  constructor( private router: Router, private usuarioService: UsuarioService) {
+  constructor( private router: Router, private usuarioService: EmployeeService) {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    const token: string = this.usuarioService.getToken();
+    const token: string = "";//this.usuarioService.getToken();
     let req = request;
     if (token) {
       req = request.clone({

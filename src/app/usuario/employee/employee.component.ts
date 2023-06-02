@@ -4,14 +4,14 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MensajesModule } from 'src/app/mensajes/mensajes.module';
 import { Usuario, UsuarioResponse, UsuarioUpdate } from '../Usuario';
-import { UsuarioService } from '../usuario.service';
+import { EmployeeService } from '../employee.service';
 import { Location } from '@angular/common';
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-employee',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.css']
 })
-export class LoginComponent implements OnInit,OnDestroy {
+export class EmployeeComponent implements OnInit,OnDestroy {
   modoCrear: boolean = false;
   modoEditar: boolean = false;
   correo!:string;
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   });
   hide = true;
   private subscription: Subscription;
-  constructor(private usuarioService: UsuarioService, private router: Router, private fb: FormBuilder
+  constructor(private usuarioService: EmployeeService, private router: Router, private fb: FormBuilder
     ,private mensaje : MensajesModule, private activatedRoute: ActivatedRoute, private location: Location) {
     this.subscription = new Subscription();
   }
@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit,OnDestroy {
       }
       this.correo = params["correo"];
       this.modoEditar= true;
-      this.usuarioService.getUsuarioByCorreo(this.correo)
+      /*this.usuarioService.getUsuarioByCorreo(this.correo)
         .subscribe(usuario => this.cargarFormulario(usuario),
-          error => this.mensaje.mensajeAlertaError(error.error.toString()));
+          error => this.mensaje.mensajeAlertaError(error.error.toString()));*/
      
     });
     const segments: UrlSegment[] = this.activatedRoute.snapshot.url;
@@ -67,16 +67,16 @@ export class LoginComponent implements OnInit,OnDestroy {
   let usuario: UsuarioUpdate = Object.assign({}, this.formGroup.value);
   usuario.passwordAntiguo =  this.formGroup.value.password;
   if (this.formGroup.valid && this.modoEditar){
-      this.usuarioService.updateUsuario(usuario)
+      /*this.usuarioService.updateUsuario(usuario)
         .subscribe(rta => this.onSuccess(rta.mensaje),
-          error => this.mensaje.mensajeAlertaError(error.error.toString()));
+          error => this.mensaje.mensajeAlertaError(error.error.toString()));*/
     } else {
       this.mensaje.mensajeAlertaError('Edicion no valida');
     
   }
  }
   onLogin(): void {
-    const formValue = this.formGroup.value;
+    /*const formValue = this.formGroup.value;
     if (this.formGroup.valid && !this.modoCrear ){
       this.subscription.add(
         this.usuarioService.onlogin(formValue).subscribe((res) =>{
@@ -88,15 +88,15 @@ export class LoginComponent implements OnInit,OnDestroy {
     }
     else{
       this.mensaje.mensajeAlertaError("Formulario Invalido")
-    }
+    }*/
   }
 
   onSave(){
     let usuario: Usuario = Object.assign({}, this.formGroup.value);
     if (this.formGroup.valid && this.modoCrear) {
-      this.usuarioService.post(usuario)
-        .subscribe(rta => this.onSuccess(rta.mensaje),
-          error => this.mensaje.mensajeAlertaError( error.error.toString()));
+     /* this.usuarioService.post(usuario)
+        .subscribe(rta => this.onSuccess("crear", "Empleado Creado exitoso"),
+          error => this.mensaje.mensajeAlertaError( error.error.toString()));*/
     } else {
       this.mensaje.mensajeAlertaError('El formGroup del Usuario no es valido');
     }
@@ -111,12 +111,12 @@ export class LoginComponent implements OnInit,OnDestroy {
     this.location.back()
   }
 
-  onSuccess(rta: string) {
+  onSuccess(tipo:string,rta: string) {
     this.mensaje.mensajeAlertaCorrecto(rta);
     if (rta.match("Usuario y Contraseña Correctos.")){
     this.router.navigate(["/menu"]);
     }
-    else if(rta.match("Usuario Creado Exitosamente.")){
+    else if(rta.match("crear")){
        this.goBack();
     }
     else if(rta.match("Usuario Actualizado Exitosamente.")){

@@ -1,9 +1,9 @@
 <div class="login-form">
     <mat-card>
       <mat-card-content>
-        <h1 *ngIf="modoCrear && !modoEditar">Registar Usuario Nuevo</h1>
+        <h1 *ngIf="modoCrear && !modoEditar">Registar Empleado</h1>
         <h1 *ngIf="!modoCrear && !modoEditar">Iniciar Sesión</h1>
-        <h1 *ngIf="!modoCrear && modoEditar">Editar</h1>
+        <h1 *ngIf="!modoCrear && modoEditar">Modificar Empleado</h1>
         <form [formGroup]="formGroup">
           <mat-form-field class="full-width-input">
             <input *ngIf="!modoEditar"

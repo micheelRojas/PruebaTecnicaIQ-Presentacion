@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { MensajesModule } from 'src/app/mensajes/mensajes.module';
 import { Location } from '@angular/common';
 import { Usuario } from '../Usuario';
-import { UsuarioService } from '../usuario.service';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-list-usuario',
@@ -28,7 +28,7 @@ export class ListUsuarioComponent implements OnInit,OnDestroy {
   paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true })
   sort!: MatSort;
-  constructor(private usuarioService: UsuarioService, private location: Location, private mensaje: MensajesModule) {
+  constructor(private usuarioService: EmployeeService, private location: Location, private mensaje: MensajesModule) {
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -39,7 +39,7 @@ export class ListUsuarioComponent implements OnInit,OnDestroy {
     this.dataSource.sort = this.sort;
   }
   ngOnInit(): void {
-    this.ConsultarUsuarios();
+   this.ConsultarUsuarios();
     this.suscription = this.usuarioService.refresh$.subscribe(() => {
       this.ConsultarUsuarios();
     });
@@ -48,17 +48,33 @@ export class ListUsuarioComponent implements OnInit,OnDestroy {
     this.suscription.unsubscribe();
   }
   ConsultarUsuarios() {
-    this.usuarioService.getUSuarios()
+    this.dataSource.data = this.usuariostemp;
+    /*this.usuarioService.getUSuarios()
       .subscribe(usuarios => this.dataSource.data = usuarios,
-        error => this.mensaje.mensajeAlertaError(error.error.toString()));
+        error => this.mensaje.mensajeAlertaError(error.error.toString()));*/
   }
   goBack():void{
     this.location.back();
   }
   delete(correo: string) {
-    this.usuarioService.delete(correo)
+    this.mensaje.mensajeAlertaCorrecto("El usuario pronto sera borrado");
+    /*this.usuarioService.delete(correo)
     .subscribe(nit => this.mensaje.mensajeAlertaCorrecto(nit.mensaje),
-        error => this.mensaje.mensajeAlertaError( error.error.toString()));
+        error => this.mensaje.mensajeAlertaError( error.error.toString()));*/
   }
- 
+  usuariostemp: Usuario[] = [
+    {
+      correo: 1,
+      password: "HOLA",
+    },
+    {
+      correo: 2,
+      password: "CARE",
+    },
+    {
+      correo: 3,
+      password: "COLA",
+    },
+  ];
+
 }

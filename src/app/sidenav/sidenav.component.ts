@@ -5,7 +5,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators'
-import { UsuarioService } from '../usuario/usuario.service';
+import { EmployeeService } from '../usuario/employee.service';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -58,7 +58,7 @@ export class SidenavComponent implements OnInit {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private router: Router,
-    private service: UsuarioService
+    private service: EmployeeService
   ) {
     this.iconRegistry();
   }
@@ -88,7 +88,7 @@ export class SidenavComponent implements OnInit {
     });
   }
   onSignOut(){
-    this.service.logout();
+    //this.service.logout();
   }
 
 }
