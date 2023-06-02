@@ -34,7 +34,7 @@ export class EmployeeComponent implements OnInit,OnDestroy {
     phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^([0-9])*$/)]],
     password: ['', Validators.required],
     active: [true],
-    tipoEmpleado: []
+    typeId: []
   });
   hide = true;
   private subscription: Subscription;
