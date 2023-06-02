@@ -38,10 +38,10 @@ export class EmployeeService {
   getEmployees(): Observable<EmployeeView[]> {
     return this.httpClient.get<EmployeeView[]>(urlApi+'/employee');
   }
-  getEmployeeById(id: string): Observable<Usuario> {
-    return this.httpClient.get<Usuario>(urlApi + '/employee' + id);
+  getEmployeeById(id: string): Observable<Employee> {
+    return this.httpClient.get<Employee>(urlApi + '/employee' + id);
   }
-  updateEmploye(employee: Employee): Observable<EmployeeView> {
+  updateEmployee(employee: Employee): Observable<EmployeeView> {
     return this.httpClient.put<EmployeeView>(urlApi+'/employee', employee);
   }
   postEmployee(employee: Employee): Observable<EmployeeView>  {

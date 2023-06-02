@@ -6,12 +6,17 @@ import { MensajesModule } from 'src/app/mensajes/mensajes.module';
 import { Usuario, UsuarioResponse, UsuarioUpdate } from '../Usuario';
 import { EmployeeService } from '../employee.service';
 import { Location } from '@angular/common';
+import { Employee } from '../Employee';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit,OnDestroy {
+  tipoempleado:string[]= [
+    'Administrador',
+    'Operador'
+  ]
   modoCrear: boolean = false;
   modoEditar: boolean = false;
   correo!:string;
@@ -27,7 +32,7 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   });
   hide = true;
   private subscription: Subscription;
-  constructor(private usuarioService: EmployeeService, private router: Router, private fb: FormBuilder
+  constructor(private employeeService: EmployeeService, private router: Router, private fb: FormBuilder
     ,private mensaje : MensajesModule, private activatedRoute: ActivatedRoute, private location: Location) {
     this.subscription = new Subscription();
   }
@@ -96,12 +101,13 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   }
 
   onSave(){
-    let employee: Usuario = Object.assign({}, this.formGroup.value);
+    let employee: Employee = Object.assign({}, this.formGroup.value);
     if (this.formGroup.valid && this.modoCrear) {
       this.mensaje.mensajeAlertaCorrecto('Empleado registrado con exito');
-     /* this.usuarioService.post(usuario)
+      console.log(employee);
+    /*  this.employeeService.post(employee)
         .subscribe(rta => this.onSuccess("crear", "Empleado Creado exitoso"),
-          error => this.mensaje.mensajeAlertaError( error.error.toString()));*/
+          error => this.mensaje.mensajeAlertaError( error.error.toString())); */
     } else {
       this.mensaje.mensajeAlertaError('El formulario del Empleado no es valido');
     }

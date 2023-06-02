@@ -1,11 +1,11 @@
 .login-form {
-    padding: 5rem 1rem;
+    padding: 1rem 1rem;
   }
   mat-card{
-    max-width: 300px;
+    max-width: 500px;
     margin: 2rem auto;
     text-align: center;
-    height: 500px;
+    height: 560px;
   }
   
   .full-width-input,
