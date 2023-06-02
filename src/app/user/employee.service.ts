@@ -39,7 +39,7 @@ export class EmployeeService {
     return this.httpClient.get<EmployeeView[]>(urlApi+'');
   }
   getEmployeeById(id: string): Observable<Employee> {
-    return this.httpClient.get<Employee>(urlApi + id);
+    return this.httpClient.get<Employee>(urlApi+'/'+ id);
   }
   updateEmployee(employee: Employee): Observable<any> {
     return this.httpClient.put<any>(urlApi, employee);

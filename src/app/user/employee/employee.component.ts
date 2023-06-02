@@ -33,9 +33,9 @@ export class EmployeeComponent implements OnInit,OnDestroy {
     secondLastName:['',[Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
     mail: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^([0-9])*$/)]],
-    password: ['', Validators.required],
+    password: [''],
     active: [true],
-    typeId: ['',Validators.required]
+    typeId: ['']
   });
   hide = true;
   private subscription: Subscription;
@@ -92,9 +92,8 @@ export class EmployeeComponent implements OnInit,OnDestroy {
  onEdit():void{
   let usuario: Employee = Object.assign({}, this.formGroup.value);
   if (this.formGroup.valid && this.modoEditar){
-    this.mensaje.mensajeAlertaError("valido")
       this.employeeService.updateEmployee(usuario)
-        .subscribe(rta => this.onSuccess("update","Empleado modificado exitosamente."),
+        .subscribe(rta => this.onSuccess("Empleado modificado exitosamente."),
           error => this.mensaje.mensajeAlertaError("Lo sentimos, no se pudo modificar el empleado."));
     } else {
       this.mensaje.mensajeAlertaError('Edicion no valida');
@@ -121,8 +120,8 @@ export class EmployeeComponent implements OnInit,OnDestroy {
     let employee: Employee = Object.assign({}, this.formGroup.value);
     if (this.formGroup.valid && this.modoCrear) {
       this.employeeService.postEmployee(employee)
-        .subscribe(rta => this.onSuccess("add", "Empleado registrado con exito"),
-          error => this.mensaje.mensajeAlertaError( error.error.toString()));
+        .subscribe(rta => this.onSuccess("Empleado registrado con exito"),
+          error => this.mensaje.mensajeAlertaError("Lo sentimos, no se pudo registrar el empleado."));
     } else {
       this.mensaje.mensajeAlertaError('El formulario del Empleado no es valido');
     }
@@ -137,16 +136,8 @@ export class EmployeeComponent implements OnInit,OnDestroy {
     this.location.back()
   }
 
-  onSuccess(tipo:string,rta: string) {
+  onSuccess(rta: string) {
     this.mensaje.mensajeAlertaCorrecto(rta);
-    if (rta.match("Usuario y Contraseña Correctos.")){
     this.router.navigate(["/home"]);
-    }
-    else if(rta.match("add")){
-       this.goBack();
-    }
-    else if(rta.match("update")){
-      this.goBack();
-   }
    }
 }
