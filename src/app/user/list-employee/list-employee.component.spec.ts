@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListUsuarioComponent } from './list-usuario.component';
+import { LisEmployeeComponent } from './list-employee.component';
 
 describe('ListUsuarioComponent', () => {
-  let component: ListUsuarioComponent;
-  let fixture: ComponentFixture<ListUsuarioComponent>;
+  let component: LisEmployeeComponent;
+  let fixture: ComponentFixture<LisEmployeeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListUsuarioComponent ]
+      declarations: [ LisEmployeeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListUsuarioComponent);
+    fixture = TestBed.createComponent(LisEmployeeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

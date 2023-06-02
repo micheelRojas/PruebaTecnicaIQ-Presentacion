@@ -5,7 +5,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators'
-import { EmployeeService } from '../usuario/employee.service';
+import { EmployeeService } from '../user/employee.service';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',

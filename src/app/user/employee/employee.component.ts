@@ -3,10 +3,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MensajesModule } from 'src/app/mensajes/mensajes.module';
-import { Usuario, UsuarioResponse, UsuarioUpdate } from '../Usuario';
+import { Usuario, UsuarioResponse, UsuarioUpdate } from '../User';
 import { EmployeeService } from '../employee.service';
 import { Location } from '@angular/common';
 import { Employee } from '../Employee';
+import { EmployeeView } from '../EmployeeView';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -21,7 +22,7 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   
   modoCrear: boolean = false;
   modoEditar: boolean = false;
-  correo!:string;
+  id!:string;
   usuarioResponse!: UsuarioResponse;
   formGroup = this.fb.group({
     id:[0],
@@ -34,7 +35,7 @@ export class EmployeeComponent implements OnInit,OnDestroy {
     phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^([0-9])*$/)]],
     password: ['', Validators.required],
     active: [true],
-    typeId: []
+    typeId: ['',Validators.required]
   });
   hide = true;
   private subscription: Subscription;
@@ -44,22 +45,23 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log("EDITAR");
     this.activatedRoute.params.subscribe(params => {
 
-      if (params["correo"] == undefined) {
+      if (params["id"] == undefined) {
        this.modoEditar= false;
         return;
       }
-      this.correo = params["correo"];
+      this.id = params["id"];
       this.modoEditar= true;
-      /*this.usuarioService.getUsuarioByCorreo(this.correo)
-        .subscribe(usuario => this.cargarFormulario(usuario),
-          error => this.mensaje.mensajeAlertaError(error.error.toString()));*/
+      this.employeeService.getEmployeeById(this.id)
+        .subscribe(employee => this.loadForm(employee),
+          error => this.mensaje.mensajeAlertaError("Lo sentimos, no se pudo encontrar el empleado."));
      
     });
     const segments: UrlSegment[] = this.activatedRoute.snapshot.url;
   
-    if (segments[0].toString().match('registrar-usuario')){
+    if (segments[0].toString().match('add-employee')){
       this.modoCrear = true;
       this.modoEditar= false;
       console.log(this.modoCrear);
@@ -71,20 +73,29 @@ export class EmployeeComponent implements OnInit,OnDestroy {
       console.log(this.modoCrear);
       console.log("logear");
     }
-    
+  
   }
-  cargarFormulario(usuario: Usuario) {
+  loadForm(employee: EmployeeView) {
     this.formGroup.patchValue({
-      correo: usuario.correo,
+      id: employee.id,
+      cc: employee.cc,
+      mail: employee.mail,
+      firstName: employee.firstName,
+      secondName: employee.secondName,
+      lastName: employee.lastName,
+      secondLastName: employee.secondLastName,
+      phone: employee.phone,
+      typeId:employee.typeId
     });
+
   }
  onEdit():void{
-  let usuario: UsuarioUpdate = Object.assign({}, this.formGroup.value);
-  usuario.passwordAntiguo =  this.formGroup.value.password;
+  let usuario: Employee = Object.assign({}, this.formGroup.value);
   if (this.formGroup.valid && this.modoEditar){
-      /*this.usuarioService.updateUsuario(usuario)
-        .subscribe(rta => this.onSuccess(rta.mensaje),
-          error => this.mensaje.mensajeAlertaError(error.error.toString()));*/
+    this.mensaje.mensajeAlertaError("valido")
+      this.employeeService.updateEmployee(usuario)
+        .subscribe(rta => this.onSuccess("update","Empleado modificado exitosamente."),
+          error => this.mensaje.mensajeAlertaError("Lo sentimos, no se pudo modificar el empleado."));
     } else {
       this.mensaje.mensajeAlertaError('Edicion no valida');
     
@@ -109,11 +120,9 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   onSave(){
     let employee: Employee = Object.assign({}, this.formGroup.value);
     if (this.formGroup.valid && this.modoCrear) {
-      this.mensaje.mensajeAlertaCorrecto('Empleado registrado con exito');
-      console.log(employee);
-      /*this.employeeService.postEmployee(employee)
-        .subscribe(rta => this.onSuccess("crear", "Empleado Creado exitoso"),
-          error => this.mensaje.mensajeAlertaError( error.error.toString())); */
+      this.employeeService.postEmployee(employee)
+        .subscribe(rta => this.onSuccess("add", "Empleado registrado con exito"),
+          error => this.mensaje.mensajeAlertaError( error.error.toString()));
     } else {
       this.mensaje.mensajeAlertaError('El formulario del Empleado no es valido');
     }
@@ -131,12 +140,12 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   onSuccess(tipo:string,rta: string) {
     this.mensaje.mensajeAlertaCorrecto(rta);
     if (rta.match("Usuario y Contraseña Correctos.")){
-    this.router.navigate(["/menu"]);
+    this.router.navigate(["/home"]);
     }
-    else if(rta.match("crear")){
+    else if(rta.match("add")){
        this.goBack();
     }
-    else if(rta.match("Usuario Actualizado Exitosamente.")){
+    else if(rta.match("update")){
       this.goBack();
    }
    }

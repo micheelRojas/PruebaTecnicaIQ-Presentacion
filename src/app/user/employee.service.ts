@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {  BehaviorSubject, Observable, Subject, Subscriber } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LoginUsuarioResponse, Usuario, UsuarioResponse, UsuarioUpdate } from './Usuario';
+import { LoginUsuarioResponse, Usuario, UsuarioResponse, UsuarioUpdate } from './User';
 import { tap, catchError, map } from 'rxjs/operators'
 import { throwError } from 'rxjs';
 import { JwtHelperService } from "@auth0/angular-jwt";
@@ -41,12 +41,12 @@ export class EmployeeService {
   getEmployeeById(id: string): Observable<Employee> {
     return this.httpClient.get<Employee>(urlApi + '/employee' + id);
   }
-  updateEmployee(employee: Employee): Observable<EmployeeView> {
-    return this.httpClient.put<EmployeeView>(urlApi+'/employee', employee);
+  updateEmployee(employee: Employee): Observable<any> {
+    return this.httpClient.put<any>(urlApi+'/employee', employee);
   }
-  postEmployee(employee: Employee): Observable<EmployeeView>  {
+  postEmployee(employee: Employee): Observable<any>  {
     
-    return this.httpClient.post<EmployeeView>(urlApi+'/employee', employee);
+    return this.httpClient.post<any>(urlApi+'/employee', employee);
   }
 
  /* onlogin(usuario: Usuario): Observable<LoginUsuarioResponse | void> {

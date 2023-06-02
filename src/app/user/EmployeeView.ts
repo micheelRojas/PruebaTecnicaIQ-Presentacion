@@ -1,5 +1,6 @@
 export class EmployeeView {
     id!:number;
+    cc!:string;
     mail!: string;
     firstName!: string;
     secondName!: string;
