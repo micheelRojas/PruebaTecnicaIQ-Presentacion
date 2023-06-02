@@ -17,8 +17,12 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   correo!:string;
   usuarioResponse!: UsuarioResponse;
   formGroup = this.fb.group({
+    nombre1:['',[Validators.required, Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
+    nombre2:['',[Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
+    apellido1:['',[Validators.required]],
+    apellido2:['',[Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
     correo: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^([0-9])*$/)]],
     passwordNuevo: [''],
   });
   hide = true;
@@ -92,13 +96,14 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   }
 
   onSave(){
-    let usuario: Usuario = Object.assign({}, this.formGroup.value);
+    let employee: Usuario = Object.assign({}, this.formGroup.value);
     if (this.formGroup.valid && this.modoCrear) {
+      this.mensaje.mensajeAlertaCorrecto('Empleado registrado con exito');
      /* this.usuarioService.post(usuario)
         .subscribe(rta => this.onSuccess("crear", "Empleado Creado exitoso"),
           error => this.mensaje.mensajeAlertaError( error.error.toString()));*/
     } else {
-      this.mensaje.mensajeAlertaError('El formGroup del Usuario no es valido');
+      this.mensaje.mensajeAlertaError('El formulario del Empleado no es valido');
     }
   }
   

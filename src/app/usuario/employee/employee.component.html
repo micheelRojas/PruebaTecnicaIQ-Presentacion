@@ -5,28 +5,112 @@
         <h1 *ngIf="!modoCrear && !modoEditar">Iniciar Sesión</h1>
         <h1 *ngIf="!modoCrear && modoEditar">Modificar Empleado</h1>
         <form [formGroup]="formGroup">
+          <mat-form-field>
+            <mat-label>Tipo de empleado</mat-label>
+            <mat-select>
+              <mat-option value=1>Administrador</mat-option>
+              <mat-option value=2>Operador</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input *ngIf="!modoEditar"
+                   text="Nombre1"
+                   type="text"
+                   formControlName="nombre1"
+                   matInput
+                   placeholder="Primer nombre"
+                   required
+              />
+              
+              <input *ngIf="!modoCrear && modoEditar"
+                   text="Correo"
+                   type="text"
+                   formControlName="correo"
+                   matInput
+                   placeholder="Correo"
+                   readonly
+                />
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input *ngIf="!modoEditar"
+                   text="Nombre2"
+                   type="text"
+                   formControlName="nombre2"
+                   matInput
+                   placeholder="Segundo nombre"
+              />
+              
+              <input *ngIf="!modoCrear && modoEditar"
+                   text="Correo"
+                   type="email"
+                   formControlName="correo"
+                   matInput
+                   placeholder="Correo"
+                   readonly
+                />
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input *ngIf="!modoEditar"
+                   text="Apellido1"
+                   type="text"
+                   formControlName="apellido1"
+                   matInput
+                   placeholder="Primer apellido"
+                   required
+              />
+              
+              <input *ngIf="!modoCrear && modoEditar"
+                   text="Correo"
+                   type="email"
+                   formControlName="correo"
+                   matInput
+                   placeholder="Correo"
+                   readonly
+                />
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input *ngIf="!modoEditar"
+                   text="Apellido2"
+                   type="text"
+                   formControlName="apellido2"
+                   matInput
+                   placeholder="Segundo apellido"
+              />
+              
+              <input *ngIf="!modoCrear && modoEditar"
+                   text="Correo"
+                   type="email"
+                   formControlName="correo"
+                   matInput
+                   placeholder="Correo"
+                   readonly
+                />
+          </mat-form-field>
           <mat-form-field class="full-width-input">
             <input *ngIf="!modoEditar"
                    text="Correo"
-                   type="email"
+                   type="text"
                    formControlName="correo"
                    matInput
-                   placeholder="Correo"
-                   required />
-                   <input *ngIf="!modoCrear && modoEditar"
+                   placeholder="Correo electronico"
+                   required
+              />
+              
+              <input *ngIf="!modoCrear && modoEditar"
                    text="Correo"
                    type="email"
                    formControlName="correo"
                    matInput
                    placeholder="Correo"
-                   readonly  />
+                   readonly
+                />
           </mat-form-field>
           <mat-form-field class="full-width-input separator">
-            <input text="Password"
-                   type="password"
-                   formControlName="password"
+            <input text="Telefono"
+                   type="text"
+                   formControlName="telefono"
                    matInput
-                   placeholder="Password"
+                   placeholder="Telefono"
                    required />
           </mat-form-field>
           <mat-form-field *ngIf="!modoCrear && modoEditar" class="full-width-input separator">
