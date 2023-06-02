@@ -22,7 +22,7 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   
   modoCrear: boolean = false;
   modoEditar: boolean = false;
-  id!:string;
+  idUpdate!:string;
   usuarioResponse!: UsuarioResponse;
   formGroup = this.fb.group({
     id:[0],
@@ -52,12 +52,12 @@ export class EmployeeComponent implements OnInit,OnDestroy {
        this.modoEditar= false;
         return;
       }
-      this.id = params["id"];
+      this.idUpdate = params["id"];
       this.modoEditar= true;
-      this.employeeService.getEmployeeById(this.id)
+      
+     this.employeeService.getEmployeeById(this.idUpdate)
         .subscribe(employee => this.loadForm(employee),
           error => this.mensaje.mensajeAlertaError("Lo sentimos, no se pudo encontrar el empleado."));
-     
     });
     const segments: UrlSegment[] = this.activatedRoute.snapshot.url;
   

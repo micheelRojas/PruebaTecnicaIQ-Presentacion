@@ -1,132 +1,129 @@
 <div class="login-form">
-    <mat-card>
-      <mat-card-content>
-        <h1 *ngIf="modoCrear && !modoEditar">Registrar Empleado</h1>
-        <h1 *ngIf="!modoCrear && !modoEditar">Iniciar Sesión</h1>
-        <h1 *ngIf="!modoCrear && modoEditar">Modificar Empleado</h1>
-        <form [formGroup]="formGroup">
-          <mat-form-field class="full-width-input">
-            <mat-label>Tipo de empleado</mat-label>
-            <mat-select text="typeId"
-            type="text"
-            formControlName="typeId"
-            matInput required>
-              <mat-option value=1>Administrador
-              </mat-option>
-              <mat-option value=2>Operador
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field class="full-width-input">
-            <input *ngIf="!modoEditar"
-                   text="cc"
-                   type="text"
-                   formControlName="cc"
-                   matInput
-                   placeholder="Documento"
-                   required
-              />
-              
-              <input *ngIf="!modoCrear && modoEditar"
-                   text="cc"
-                   type="text"
-                   formControlName="cc"
-                   matInput
-                   placeholder="Documento"
-                   readonly
-                />
-          </mat-form-field>
-          <mat-form-field class="full-width-input">
-            <input 
-                   text="firstName"
-                   type="text"
-                   formControlName="firstName"
-                   matInput
-                   placeholder="Primer nombre"
-                   required
-              />
-          </mat-form-field>
-          <mat-form-field class="full-width-input">
-            <input 
-                   text="secondName"
-                   type="text"
-                   formControlName="secondName"
-                   matInput
-                   placeholder="Segundo nombre"
-              />
-
-          </mat-form-field>
-          <mat-form-field class="full-width-input">
-            <input 
-                   text="lastName"
-                   type="text"
-                   formControlName="lastName"
-                   matInput
-                   placeholder="Primer apellido"
-                   required
-              />
-              
-          </mat-form-field>
-          <mat-form-field class="full-width-input">
-            <input
-                   text="secondLastName"
-                   type="text"
-                   formControlName="secondLastName"
-                   matInput
-                   placeholder="Segundo apellido"
-              />
-              
-          </mat-form-field>
-          <mat-form-field class="full-width-input">
-            <input 
-                   text="mail"
-                   type="email"
-                   formControlName="mail"
-                   matInput
-                   placeholder="Correo electronico"
-                   required
-              />
-              
-          </mat-form-field>
-          <mat-form-field class="full-width-input">
-            <input *ngIf="!modoEditar"
-                   text="password"
-                   type="password"
-                   formControlName="password"
-                   matInput
-                   placeholder="Contraseña"
-                   required
-              />   
-          </mat-form-field>
+  <mat-card>
+    <mat-card-content>
+      <h1 *ngIf="modoCrear && !modoEditar">Registrar Empleado</h1>
+      <h1 *ngIf="!modoCrear && !modoEditar">Iniciar Sesión</h1>
+      <h1 *ngIf="!modoCrear && modoEditar">Modificar Empleado</h1>
+      <form [formGroup]="formGroup">
+        <mat-form-field class="full-width-input">
+          <mat-label>Tipo de empleado</mat-label>
+          <mat-select text="typeId"
+          type="text"
+          formControlName="typeId"
+          matInput required>
+            <mat-option value=1>Administrador
+            </mat-option>
+            <mat-option value=2>Operador
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input 
+                 text="cc"
+                 type="text"
+                 formControlName="cc"
+                 matInput
+                 placeholder="Documento"
+                 required
+                 [readonly]="modoEditar"
+            />
+            
           
-          <mat-form-field class="full-width-input separator">
-            <input 
-                   text="phone"
-                   type="text"
-                   formControlName="phone"
-                   matInput
-                   placeholder="Telefono"
-                   required
-              />
-          </mat-form-field>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input 
+                 text="firstName"
+                 type="text"
+                 formControlName="firstName"
+                 matInput
+                 placeholder="Primer nombre"
+                 required
+            />
+            
+            
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input
+                 text="secondName"
+                 type="text"
+                 formControlName="secondName"
+                 matInput
+                 placeholder="Segundo nombre"
+            />
+            
+          
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input 
+                 text="lastName"
+                 type="text"
+                 formControlName="lastName"
+                 matInput
+                 placeholder="Primer apellido"
+                 required
+            />
+            
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input 
+                 text="secondLastName"
+                 type="text"
+                 formControlName="secondLastName"
+                 matInput
+                 placeholder="Segundo apellido"
+            />
+
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input 
+                 text="mail"
+                 type="email"
+                 formControlName="mail"
+                 matInput
+                 placeholder="Correo electronico"
+                 required
+            />
+            
+        </mat-form-field>
+        <mat-form-field class="full-width-input" *ngIf="!modoEditar">
+          <input 
+                 text="password"
+                 type="password"
+                 formControlName="password"
+                 matInput
+                 placeholder="Contraseña"
+                 [required] ="!modoEditar"
+            />
+            
+        </mat-form-field>
         
-          <button *ngIf="!modoCrear && !modoEditar" type="submit" (click)="onLogin()" mat-raised-button color="primary">
-            Iniciar sesión
-          </button>
-          <button *ngIf="!modoCrear && modoEditar" type="submit" (click)="onEdit()" mat-raised-button color="primary">
-            Editar
-          </button>
-          <div>
-            <button  *ngIf="modoCrear && !modoEditar" type="submit" (click)="onSave()" mat-raised-button color="primary">
-              Registrar
-            </button>
-          <button *ngIf="modoCrear || modoEditar" mat-icon-button color="warn" (click)="goBack()"><mat-icon>reply_all</mat-icon></button>
+        <mat-form-field class="full-width-input separator">
+          <input 
+                 text="phone"
+                 type="text"
+                 formControlName="phone"
+                 matInput
+                 placeholder="Celular"
+                 required
+            />
+        </mat-form-field>
 
-          </div>
-          
-  
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </div>
+        <button *ngIf="!modoCrear && !modoEditar" type="submit" (click)="onLogin()" mat-raised-button color="primary">
+          Iniciar sesión
+        </button>
+        <button *ngIf="!modoCrear && modoEditar" type="submit" (click)="onEdit()" mat-raised-button color="primary">
+          Editar
+        </button>
+        <div>
+          <button  *ngIf="modoCrear && !modoEditar" type="submit" (click)="onSave()" mat-raised-button color="primary">
+            Registrar
+          </button>
+        <button *ngIf="modoCrear || modoEditar" mat-icon-button color="warn" (click)="goBack()"><mat-icon>reply_all</mat-icon></button>
 
+        </div>
+        
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

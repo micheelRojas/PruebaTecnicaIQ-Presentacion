@@ -57,6 +57,7 @@ export class LisEmployeeComponent implements OnInit,OnDestroy {
   }
   
   GetEmployees() {
+   
    this.employeeService.getEmployees()
       .subscribe(employees => this.dataSource.data = employees,
         error => this.mensaje.mensajeAlertaError("Error al conultar los empleados."));
@@ -73,18 +74,5 @@ export class LisEmployeeComponent implements OnInit,OnDestroy {
   }
 
   
-  usuariostemp: EmployeeView[] = [
-    {
-    id: 1,
-    cc:"1065",
-    mail: "HOLA",
-    firstName: "HOLA",
-    secondName: "HOLA",
-    lastName: "HOLA",
-    secondLastName: "HOLA",
-    phone: "HOLA",
-    typeId:1
-    },
-  ];
 
 }
