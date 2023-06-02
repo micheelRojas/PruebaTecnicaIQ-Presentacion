@@ -105,9 +105,9 @@ export class EmployeeComponent implements OnInit,OnDestroy {
     if (this.formGroup.valid && this.modoCrear) {
       this.mensaje.mensajeAlertaCorrecto('Empleado registrado con exito');
       console.log(employee);
-    /*  this.employeeService.post(employee)
+      this.employeeService.postEmployee(employee)
         .subscribe(rta => this.onSuccess("crear", "Empleado Creado exitoso"),
-          error => this.mensaje.mensajeAlertaError( error.error.toString())); */
+          error => this.mensaje.mensajeAlertaError( error.error.toString())); 
     } else {
       this.mensaje.mensajeAlertaError('El formulario del Empleado no es valido');
     }
