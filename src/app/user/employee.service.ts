@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { EmployeeView } from './EmployeeView';
 import { Employee } from './Employee';
 const helper = new JwtHelperService();
-const urlApi: string = `${environment.baseUrlApi}/Usuario`;
+const urlApi: string = `${environment.baseUrlApi}/employee`;
 
 
 @Injectable({
@@ -26,7 +26,7 @@ export class EmployeeService {
     return this._refresh$;
   }
   delete(id: string): Observable<any> {
-    return this.httpClient.delete<any>(urlApi + "/employee/" + id)
+    return this.httpClient.delete<any>(urlApi + "/" + id)
       .pipe(
         tap(() => {
           this._refresh$.next();
@@ -36,17 +36,17 @@ export class EmployeeService {
   }
   
   getEmployees(): Observable<EmployeeView[]> {
-    return this.httpClient.get<EmployeeView[]>(urlApi+'/employee');
+    return this.httpClient.get<EmployeeView[]>(urlApi+'');
   }
   getEmployeeById(id: string): Observable<Employee> {
-    return this.httpClient.get<Employee>(urlApi + '/employee' + id);
+    return this.httpClient.get<Employee>(urlApi + id);
   }
   updateEmployee(employee: Employee): Observable<any> {
-    return this.httpClient.put<any>(urlApi+'/employee', employee);
+    return this.httpClient.put<any>(urlApi, employee);
   }
   postEmployee(employee: Employee): Observable<any>  {
     
-    return this.httpClient.post<any>(urlApi+'/employee', employee);
+    return this.httpClient.post<any>(urlApi, employee);
   }
 
  /* onlogin(usuario: Usuario): Observable<LoginUsuarioResponse | void> {
