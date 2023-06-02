@@ -16,6 +16,9 @@
             <mat-option value=2>Cajero
             </mat-option>
           </mat-select>
+          <div *ngIf="formGroup.get('typeId')?.invalid && (formGroup.get('typeId')?.dirty || formGroup.get('typeId')?.touched)">
+            <div *ngIf="formGroup.get('typeId')?.errors?.['required']">El tipo de empleado es requerido.</div>
+          </div>
         </mat-form-field>
         <mat-form-field class="full-width-input">
           <input 
@@ -27,7 +30,12 @@
                  required
                  [readonly]="modoEditar"
             />
-            
+          <div *ngIf="formGroup.get('cc')?.invalid && (formGroup.get('cc')?.dirty || formGroup.get('cc')?.touched)">
+            <div *ngIf="formGroup.get('cc')?.errors?.['required']">El numero de documento es requerido.</div>
+             <div *ngIf="formGroup.get('cc')?.errors?.['minLength']">El número de mínimo 6 caracteres</div>
+             <div *ngIf="formGroup.get('cc')?.errors?.['maxLength']">El número de máximo 10 caracteres</div>
+             <div *ngIf="formGroup.get('cc')?.errors?.['pattern']">El valor debe ser numérico</div>
+          </div>
           
         </mat-form-field>
         <mat-form-field class="full-width-input">
@@ -39,7 +47,12 @@
                  placeholder="Primer nombre"
                  required
             />
-            
+            <div *ngIf="formGroup.get('firstName')?.invalid && (formGroup.get('firstName')?.dirty || formGroup.get('firstName')?.touched)">
+              <div *ngIf="formGroup.get('firstName')?.errors?.['required']">El primer nombre es requerido</div>
+               <div *ngIf="formGroup.get('firstName')?.errors?.['minLength']">Mínimo 2 caracteres</div>
+               <div *ngIf="formGroup.get('firstName')?.errors?.['maxLength']">Máximo 20 caracteres</div>
+               <div *ngIf="formGroup.get('firstName')?.errors?.['pattern']">El valor debe ser alfabetico</div>
+            </div> 
             
         </mat-form-field>
         <mat-form-field class="full-width-input">
@@ -50,7 +63,11 @@
                  matInput
                  placeholder="Segundo nombre"
             />
-            
+            <div *ngIf="formGroup.get('secondName')?.invalid && (formGroup.get('secondName')?.dirty || formGroup.get('secondName')?.touched)">
+               <div *ngIf="formGroup.get('secondName')?.errors?.['minLength']">Mínimo 2 caracteres</div>
+               <div *ngIf="formGroup.get('secondName')?.errors?.['maxLength']">Máximo 20 caracteres</div>
+               <div *ngIf="formGroup.get('secondName')?.errors?.['pattern']">El valor debe ser alfabetico</div>
+            </div> 
           
         </mat-form-field>
         <mat-form-field class="full-width-input">
@@ -62,7 +79,12 @@
                  placeholder="Primer apellido"
                  required
             />
-            
+            <div *ngIf="formGroup.get('lastName')?.invalid && (formGroup.get('lastName')?.dirty || formGroup.get('lastName')?.touched)">
+              <div *ngIf="formGroup.get('lastName')?.errors?.['required']">El primer apellido es requerido</div>
+              <div *ngIf="formGroup.get('lastName')?.errors?.['minLength']">Mínimo 2 caracteres</div>
+              <div *ngIf="formGroup.get('lastName')?.errors?.['maxLength']">Máximo 20 caracteres</div>
+              <div *ngIf="formGroup.get('lastName')?.errors?.['pattern']">El valor debe ser alfabetico</div>
+           </div>  
         </mat-form-field>
         <mat-form-field class="full-width-input">
           <input 
@@ -72,7 +94,11 @@
                  matInput
                  placeholder="Segundo apellido"
             />
-
+            <div *ngIf="formGroup.get('secondLastName')?.invalid && (formGroup.get('secondLastName')?.dirty || formGroup.get('secondLastName')?.touched)">
+              <div *ngIf="formGroup.get('secondLastName')?.errors?.['minLength']">Mínimo 2 caracteres</div>
+              <div *ngIf="formGroup.get('secondLastName')?.errors?.['maxLength']">Máximo 20 caracteres</div>
+              <div *ngIf="formGroup.get('secondLastName')?.errors?.['pattern']">El valor debe ser alfabetico</div>
+           </div>  
         </mat-form-field>
         <mat-form-field class="full-width-input">
           <input 
@@ -83,7 +109,10 @@
                  placeholder="Correo electronico"
                  required
             />
-            
+            <div *ngIf="formGroup.get('mail')?.invalid && (formGroup.get('mail')?.dirty || formGroup.get('mail')?.touched)">
+              <div *ngIf="formGroup.get('mail')?.errors?.['required']">El primer apellido es requerido</div>
+              <div *ngIf="formGroup.get('mail')?.errors?.['email']">Formato no valido</div>
+           </div>  
         </mat-form-field>
         <mat-form-field class="full-width-input" *ngIf="!modoEditar">
           <input 
@@ -94,7 +123,10 @@
                  placeholder="Contraseña"
                  [required] ="!modoEditar"
             />
-            
+            <div *ngIf="formGroup.get('password')?.invalid && (formGroup.get('password')?.dirty || formGroup.get('password')?.touched)">
+              <div *ngIf="formGroup.get('password')?.errors?.['required']">Password es requerido</div>
+          
+           </div>  
         </mat-form-field>
         
         <mat-form-field class="full-width-input separator">
@@ -106,6 +138,12 @@
                  placeholder="Celular"
                  required
             />
+            <div *ngIf="formGroup.get('phone')?.invalid && (formGroup.get('phone')?.dirty || formGroup.get('phone')?.touched)">
+              <div *ngIf="formGroup.get('phone')?.errors?.['required']">Valor requerido</div>
+              <div *ngIf="formGroup.get('phone')?.errors?.['min']">Mínimo 10 caracteres</div>
+              <div *ngIf="formGroup.get('phone')?.errors?.['maxLength']">Máximo 10 caracteres</div>
+              <div *ngIf="formGroup.get('phone')?.errors?.['pattern']">El valor debe ser numérico</div>
+           </div>  
         </mat-form-field>
 
         <button *ngIf="!modoCrear && !modoEditar" type="submit" (click)="onLogin()" mat-raised-button color="primary">
