@@ -1,5 +1,6 @@
 export class Employee {
     id!:number;
+    cc!:string;
     mail!: string;
     password!: string;
     firstName!: string;

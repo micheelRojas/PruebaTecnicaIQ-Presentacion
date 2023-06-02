@@ -7,26 +7,49 @@
         <form [formGroup]="formGroup">
           <mat-form-field class="full-width-input">
             <mat-label>Tipo de empleado</mat-label>
-            <mat-select required >
-              <mat-option *ngFor="let te of tipoempleado" [value]="te">
-                {{te}}
+            <mat-select text="tipoEmpleado"
+            type="text"
+            formControlName="tipoEmpleado"
+            matInput required>
+              <mat-option value=1>Administrador
+              </mat-option>
+              <mat-option value=2>Operador
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="full-width-input">
             <input *ngIf="!modoEditar"
-                   text="Nombre1"
+                   text="cc"
                    type="text"
-                   formControlName="nombre1"
+                   formControlName="cc"
+                   matInput
+                   placeholder="Documento"
+                   required
+              />
+              
+              <input *ngIf="!modoCrear && modoEditar"
+                   text="cc"
+                   type="text"
+                   formControlName="cc"
+                   matInput
+                   placeholder="Documento"
+                   readonly
+                />
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input *ngIf="!modoEditar"
+                   text="firstName"
+                   type="text"
+                   formControlName="firstName"
                    matInput
                    placeholder="Primer nombre"
                    required
               />
               
               <input *ngIf="!modoCrear && modoEditar"
-                   text="Nombre1"
+                   text="firstName"
                    type="text"
-                   formControlName="nombre1"
+                   formControlName="firstName"
                    matInput
                    placeholder="Primer nombre"
                    readonly
@@ -34,17 +57,17 @@
           </mat-form-field>
           <mat-form-field class="full-width-input">
             <input *ngIf="!modoEditar"
-                   text="Nombre2"
+                   text="secondName"
                    type="text"
-                   formControlName="nombre2"
+                   formControlName="secondName"
                    matInput
                    placeholder="Segundo nombre"
               />
               
               <input *ngIf="!modoCrear && modoEditar"
-                    text="Nombre2"
+                    text="secondName"
                     type="text"
-                    formControlName="nombre2"
+                    formControlName="secondName"
                     matInput
                     placeholder="Segundo nombre"
                    readonly
@@ -52,18 +75,18 @@
           </mat-form-field>
           <mat-form-field class="full-width-input">
             <input *ngIf="!modoEditar"
-                   text="Apellido1"
+                   text="lastName"
                    type="text"
-                   formControlName="apellido1"
+                   formControlName="lastName"
                    matInput
                    placeholder="Primer apellido"
                    required
               />
               
               <input *ngIf="!modoCrear && modoEditar"
-                  text="Apellido1"
+                  text="lastName"
                   type="text"
-                  formControlName="apellido1"
+                  formControlName="lastName"
                   matInput
                   placeholder="Primer apellido"
                    readonly
@@ -71,17 +94,17 @@
           </mat-form-field>
           <mat-form-field class="full-width-input">
             <input *ngIf="!modoEditar"
-                   text="Apellido2"
+                   text="secondLastName"
                    type="text"
-                   formControlName="apellido2"
+                   formControlName="secondLastName"
                    matInput
                    placeholder="Segundo apellido"
               />
               
               <input *ngIf="!modoCrear && modoEditar"
-                  text="Apellido2"
+                  text="secondLastName"
                   type="text"
-                  formControlName="apellido2"
+                  formControlName="secondLastName"
                   matInput
                   placeholder="Segundo apellido"
                    readonly
@@ -89,34 +112,65 @@
           </mat-form-field>
           <mat-form-field class="full-width-input">
             <input *ngIf="!modoEditar"
-                   text="Correo"
+                   text="mail"
                    type="email"
-                   formControlName="correo"
+                   formControlName="mail"
                    matInput
                    placeholder="Correo electronico"
                    required
               />
               
               <input *ngIf="!modoCrear && modoEditar"
-                   text="Correo"
+                   text="mail"
                    type="email"
-                   formControlName="correo"
+                   formControlName="mail"
                    matInput
                    placeholder="Correo"
                    readonly
                 />
           </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input *ngIf="!modoEditar"
+                   text="password"
+                   type="password"
+                   formControlName="password"
+                   matInput
+                   placeholder="Contraseña"
+                   required
+              />
+              
+              <input *ngIf="!modoCrear && modoEditar"
+                   text="password"
+                   type="password"
+                   formControlName="password"
+                   matInput
+                   placeholder="Contraseña"
+                   readonly
+                />
+          </mat-form-field>
+          
           <mat-form-field class="full-width-input separator">
             <input 
-                   text="Telefono"
+                   text="phone"
                    type="text"
-                   formControlName="telefono"
+                   formControlName="phone"
                    matInput
                    placeholder="Telefono"
                    required
               />
           </mat-form-field>
           <!-- 
+             id!:number;
+    cc!:string;
+    mail!: string;
+    password!: string;
+    firstName!: string;
+    secondName!: string;
+    lastName!: string;
+    secondLastName!: string;
+    phone!: string;
+    active!: boolean;
+    typeId!:number
           <mat-form-field *ngIf="!modoCrear && modoEditar" class="full-width-input separator">
             <input 
                   text="Telefono"

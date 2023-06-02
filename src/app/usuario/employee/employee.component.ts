@@ -16,19 +16,25 @@ export class EmployeeComponent implements OnInit,OnDestroy {
   tipoempleado:string[]= [
     'Administrador',
     'Operador'
-  ]
+  ];
+  
+  
   modoCrear: boolean = false;
   modoEditar: boolean = false;
   correo!:string;
   usuarioResponse!: UsuarioResponse;
   formGroup = this.fb.group({
-    nombre1:['',[Validators.required, Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
-    nombre2:['',[Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
-    apellido1:['',[Validators.required]],
-    apellido2:['',[Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
-    correo: ['', [Validators.required, Validators.email]],
-    telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^([0-9])*$/)]],
-    passwordNuevo: [''],
+    id:[0],
+    firstName:['',[Validators.required, Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
+    cc: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10), Validators.pattern(/^([0-9])*$/)]],
+    secondName:['',[Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
+    lastName:['',[Validators.required]],
+    secondLastName:['',[Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/), Validators.minLength(2), Validators.maxLength(20)]],
+    mail: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^([0-9])*$/)]],
+    password: ['', Validators.required],
+    active: [true],
+    tipoEmpleado: []
   });
   hide = true;
   private subscription: Subscription;
@@ -105,9 +111,9 @@ export class EmployeeComponent implements OnInit,OnDestroy {
     if (this.formGroup.valid && this.modoCrear) {
       this.mensaje.mensajeAlertaCorrecto('Empleado registrado con exito');
       console.log(employee);
-      this.employeeService.postEmployee(employee)
+      /*this.employeeService.postEmployee(employee)
         .subscribe(rta => this.onSuccess("crear", "Empleado Creado exitoso"),
-          error => this.mensaje.mensajeAlertaError( error.error.toString())); 
+          error => this.mensaje.mensajeAlertaError( error.error.toString())); */
     } else {
       this.mensaje.mensajeAlertaError('El formulario del Empleado no es valido');
     }
